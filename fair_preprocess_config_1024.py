@@ -1,0 +1,55 @@
+type='FAIR'
+source_fair_dataset_path='/data/FAIR_dataset/FAIR_1M'
+source_dataset_path='/data/FAIR_dataset/fair_DOTA'
+target_dataset_path='/data/FAIR_dataset/processed'
+convert_tasks=['train','val','test']
+
+Fair2Fair1M_5 = True
+
+# available labels: train, val, test, trainval
+tasks=[
+    dict(
+        label='trainval',
+        config=dict(
+            subimage_size=1024,
+            overlap_size=200,
+            multi_scale=[1.],
+            horizontal_flip=False,
+            vertical_flip=False,
+            rotation_angles=[0.] 
+        )
+    ),
+    dict(
+        label='train',
+        config=dict(
+            subimage_size=1024,
+            overlap_size=200,
+            multi_scale=[1.],
+            horizontal_flip=False,
+            vertical_flip=False,
+            rotation_angles=[0.] 
+        )
+    ),   
+    dict(
+        label='val',
+        config=dict(
+            subimage_size=1024,
+            overlap_size=200,
+            multi_scale=[1.],
+            horizontal_flip=False,
+            vertical_flip=False,
+            rotation_angles=[0.] 
+        )
+    ),    
+    dict(
+        label='test',
+        config=dict(
+            subimage_size=1024,
+            overlap_size=200,
+            multi_scale=[1.],
+            horizontal_flip=False,
+            vertical_flip=False,
+            rotation_angles=[0.] 
+        )
+    )
+]
