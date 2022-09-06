@@ -1,4 +1,4 @@
-## Put it into PATH/JDet/python/jdet/devkits
+## Put it into PATH/JDet/python/jdet/data/devkits
 import os
 
 NeedChange_Airplane = {'Boeing737', 'Boeing747', 'Boeing777', 'Boeing787', 'C919', 
