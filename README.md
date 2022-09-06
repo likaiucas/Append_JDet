@@ -13,3 +13,5 @@ python setup.py develop
 
 step2: install my packages
 """
+https://github.com/CoolbreezeKevin/Append_JDet.git
+"""
