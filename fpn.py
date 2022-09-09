@@ -1,5 +1,3 @@
-## put it into PATH/TO/YOUR_JDet/python/jdet/models/necks
-
 from copy import copy
 import jittor as jt 
 from jittor import nn
@@ -73,7 +71,7 @@ class FPN(nn.Module):
                  conv_cfg=None,
                  norm_cfg=None,
                  act_cfg=None,
-                 panet_buttomup=True,
+                 panet_buttomup=True,       #在配置文件中加这一行
                  USE_GN=False,
                  fpn_dim=256,
                  upsample_cfg=dict(mode='nearest'),
@@ -88,6 +86,7 @@ class FPN(nn.Module):
         self.num_ins = len(in_channels)
         self.panet_buttomup=panet_buttomup
         self.num_outs = num_outs
+        self.USE_GN = USE_GN
         self.relu_before_extra_convs = relu_before_extra_convs
         self.no_norm_on_lateral = no_norm_on_lateral
         self.upsample_cfg = upsample_cfg.copy()
@@ -153,13 +152,21 @@ class FPN(nn.Module):
             self.panet_buttomup_conv1_modules = nn.ModuleList()
             self.panet_buttomup_conv2_modules = nn.ModuleList()
             for i in range(len(self.in_channels) - 1):
-                # without Group Normonization
-                self.panet_buttomup_conv1_modules.append(
-                    nn.Conv2d(self.fpn_dim, self.fpn_dim, 3, 2, 1)
-                )
-                self.panet_buttomup_conv2_modules.append(
-                    nn.Conv2d(self.fpn_dim, self.fpn_dim, 3, 1, 1)
-                )
+                if self.USE_GN:
+                    self.panet_buttomup_conv1_modules.append(
+                        nn.Sequential(nn.Conv2d(self.fpn_dim, self.fpn_dim, 3, 2, 1)),
+                        nn.GroupNorm(4,self.fpn_dim))
+                    self.panet_buttomup_conv2_modules.append(
+                        nn.Sequential(nn.Conv2d(self.fpn_dim, self.fpn_dim, 3, 1, 1)),
+                        nn.GroupNorm(4,self.fpn_dim))                    
+                else: 
+                    # without Group Normonization
+                    self.panet_buttomup_conv1_modules.append(
+                        nn.Conv2d(self.fpn_dim, self.fpn_dim, 3, 2, 1)
+                    )
+                    self.panet_buttomup_conv2_modules.append(
+                        nn.Conv2d(self.fpn_dim, self.fpn_dim, 3, 1, 1)
+                    )
         self.init_weights()
 
     def init_weights(self):
