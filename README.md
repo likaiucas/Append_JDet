@@ -23,4 +23,5 @@ mv Append_JDet/preprocess_copy.py JDet/tools
 mv Append_JDet/fuse_datasets.py JDet/python/jdet/tools
 mv Append_JDet/trainsforms.py JDet/python/jdet/data/devkits/transforms.py
 mv Append_JDet/swa_model.py JDet/tools
+mv Append_JDet/custom.py JDet/python/jdet/data/custom.py
 ```
